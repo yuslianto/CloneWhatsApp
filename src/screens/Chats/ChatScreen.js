@@ -4,6 +4,7 @@ import {
     Text,
     Alert,
     FlatList,
+    TouchableHighlight,
     ScrollView,
     StyleSheet
 } from "react-native";
@@ -85,17 +86,15 @@ class ChatScreen extends Component {
         };
     }
 
-    //_onLongPross() {
-    //    Alert.alert('You long pres the item!!!')
-    //}
-
     _renderItem = ({item}) => (
-        
+    
         <ChatItem
             id={item.id}
             name={item.name}
             message={item.message}
             date={item.date}
+            onPress={() => this.props.navigation.navigate('ChatDetailItemScreen')} 
+            //navigation={this.props.navigation}
         />
     );
 

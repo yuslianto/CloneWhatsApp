@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { 
     View,
     Text,
+    TouchableOpacity,
     StyleSheet
 } from "react-native";
 import { 
@@ -14,15 +15,18 @@ class ChatItem extends Component {
         super(props);        
     }
 
+    //onPress = ()=> {
+      //  navigate('ChatDetailItemScreen')
+    //};
 
     render() {
         const {id, name, message, date} = this.props;
-        //const {navigate} = this.props.navigation;
+
         return (
             <View style={styles.container}>
                 <ListItem avatar
                     button={true}
-                    onPress= { ()=> this.props.navigation.navigate('ChatDetailItemScreen') }
+                    onPress={this.props.onPress}
                 >
                     <Left>
                         <Thumbnail source={ require('../assets/images/regLogo.png') } />

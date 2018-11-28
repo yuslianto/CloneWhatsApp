@@ -7,6 +7,9 @@ import {
 
 class ChatDetailItemScreen extends Component {
     render() {
+
+        const {navigation} = this.props;
+
         return (
             <View style={styles.container}>
                 <Text>Chat details item Screen</Text>
