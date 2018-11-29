@@ -22,7 +22,7 @@ class IconHeaderRight extends Component {
     render() {
         return (
             <View style={{flex: 1, flexDirection: 'row',}}>
-                <Text>Selectt</Text>
+                <Text>Select</Text>
                 <Text>160</Text>
             </View>
         );

@@ -93,7 +93,21 @@ class ChatScreen extends Component {
             name={item.name}
             message={item.message}
             date={item.date}
-            onPress={() => this.props.navigation.navigate('ChatDetailItemScreen')} 
+            onPress={() => {
+                /* 1. Navigate to the Details route with params */
+                this.props.navigation.navigate('ChatDetailItemScreen', {
+                  name: name,
+                  message: message,
+                  date: date,
+                });
+              }}
+            onPress={() => this.props.navigation.navigate('ChatDetailItemScreen', 
+                {
+                    name: item.name, 
+                    message: item.message,
+                    date: item.date,
+                }
+            )} 
             //navigation={this.props.navigation}
         />
     );
