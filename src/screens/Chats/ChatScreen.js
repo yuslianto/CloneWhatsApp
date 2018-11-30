@@ -93,7 +93,7 @@ class ChatScreen extends Component {
             name={item.name}
             message={item.message}
             date={item.date}
-            
+            onLongPress={()=> Alert.alert("Thanks You long press this listitem")}
             onPress={() => this.props.navigation.navigate('ChatDetailItemScreen', 
                 {
                     name: item.name, 
@@ -111,7 +111,7 @@ class ChatScreen extends Component {
 
         return (
             <View style={styles.container}>
-                <List>
+                <List containerStyle = {{borderTopWidth: 0, borderBottomWidth: 0}}>
                     <FlatList
                         data={this.state.data}
                         keyExtractor={this._keyExtractor} 
@@ -123,7 +123,12 @@ class ChatScreen extends Component {
                     style={{ backgroundColor: '#009933' }}
                     position="bottomRight"
                     onPress={ ()=> this.props.navigation.navigate('AddChatItemScreen') }>
-                    <Icon name="md-create" />
+                    <Icon 
+                        name="md-text" 
+                        style={{
+                            //rotation: 180
+                        }}
+                    />
                 </Fab>
             </View>
         );

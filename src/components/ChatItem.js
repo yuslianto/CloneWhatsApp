@@ -26,6 +26,7 @@ class ChatItem extends Component {
             <View style={styles.container}>
                 <ListItem avatar
                     button={true}
+                    onLongPress={this.props.onLongPress}
                     onPress={this.props.onPress}
                 >
                     <Left>
@@ -48,5 +49,6 @@ export default ChatItem;
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+        backgroundColor: 'white',
     }
 });
