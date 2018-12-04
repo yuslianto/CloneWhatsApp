@@ -3,12 +3,13 @@ import {
     View,
     Text,
     Alert,
+    ScrollView,
     Button,
     Image,
     TouchableOpacity,
     StyleSheet
 } from "react-native";
-import {Thumbnail} from 'native-base';
+import {Container, Input, Item, Content, Thumbnail, Footer} from 'native-base';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
 class LogoTitle extends Component {
@@ -91,11 +92,51 @@ class ChatDetailItemScreen extends Component {
         const {item, name, message, date, } = this.props.navigation.state.params;
 
         return (
-            <View style={styles.container}>
-                <Text>{name}</Text>
-                <Text>{message}</Text>
-                <Text>{date}</Text>
-            </View>
+            <Container>
+                <ScrollView style={styles.container}>
+                    <Text>{name}</Text>
+                    <Text>{message}</Text>
+                    <Text>{date}</Text>
+                </ScrollView>
+                <View 
+                    style={{flex: 1, flexDirection: 'row', paddingHorizontal: 5, position: 'absolute', bottom: 0,
+                    right: 0, left: 0, backgroundColor: 'transparent', marginBottom: 5,
+                    justifyContent: 'center', alignItems: 'center'}}
+                >
+                    <View style={{flex: 8.5, backgroundColor: 'transparent',  marginRight: 5,}}>
+                        <Item rounded 
+                            style={{paddingHorizontal: 10,}}
+                        >
+                            <Ionicons name="md-happy"
+                                style={{color: 'black', fontSize: 25}}
+                            />
+                            <Input
+                                placeholder='Type a message'
+                            />
+                            <Ionicons name="md-attach"
+                                style={{color: 'black', fontSize: 25, paddingRight: 20}}
+                            />
+                            <Ionicons name="logo-instagram"
+                                style={{color: 'black', fontSize: 25}}
+                            />
+                        </Item>
+                    </View>
+                    
+                    <View 
+                        style={{flex: 1.5, justifyContent: 'center',
+                            alignItems: 'center',
+                        }}
+                    >
+                        <View style={{flex: 1, backgroundColor: 'green',justifyContent: 'center',
+                            alignItems: 'center', borderRadius: 50, width: 50, height: 50, }}
+                        >
+                            <Ionicons name="md-mic"
+                                style={{color: 'white', fontSize: 25}}
+                            />
+                        </View>   
+                    </View>
+                </View>
+            </Container>
         );
     }
 }
@@ -104,8 +145,6 @@ export default ChatDetailItemScreen;
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center'
     },
     textHeader:{
         //fontStyle: 'white',
