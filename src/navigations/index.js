@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { 
     View,
+    Alert,
     Text,
     TouchableOpacity,
     StyleSheet
@@ -107,9 +108,11 @@ const RootStack = createStackNavigator(
                                 <Icon name="ios-search" size={24} color="white"/>
                             </View>
                         </TouchableOpacity>
-                        <View style={{ paddingHorizontal: 10}}>
+                        <TouchableOpacity style={{ paddingHorizontal: 10}}
+                            onPress={()=> Alert.alert('this is pop-up-menu')}
+                        >
                             <Icon name="md-more" size={24} color="white"/>
-                        </View>
+                        </TouchableOpacity>
                     </View>
                 )
             })
