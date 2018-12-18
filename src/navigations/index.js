@@ -8,6 +8,7 @@ import {
 } from "react-native";
 import Icon from 'react-native-vector-icons/Ionicons';
 import { createStackNavigator, createMaterialTopTabNavigator } from 'react-navigation';
+import { MenuProvider, Menu, MenuOptions, MenuOption, MenuTrigger} from 'react-native-popup-menu'
 
 import CallsScreen from "../screens/Calls/CallsScreen";
 import CallItemScreen from "../screens/Calls/CallItemScreen";
@@ -29,10 +30,6 @@ const RootTab = createMaterialTopTabNavigator(
             screen: KameraScreen,
             navigationOptions: {
                 tabBarLabel: 'Camera',
-                /*tabBarOptions: {
-                    showLabel: false,
-                    showIcon: true
-                }*/
             },
         },
         ChatScreen : { 
@@ -69,7 +66,7 @@ const RootTab = createMaterialTopTabNavigator(
         tabBarOptions: {
             activeTintColor: 'white',
             inactiveTintColor: '#f2f2f2',
-            showIcon: true,
+            //showIcon: true,
             showLabel: true,
             style : {
                 backgroundColor: '#009933',
@@ -111,6 +108,7 @@ const RootStack = createStackNavigator(
                         <TouchableOpacity style={{ paddingHorizontal: 10}}
                             onPress={()=> Alert.alert('this is pop-up-menu')}
                         >
+                            
                             <Icon name="md-more" size={24} color="white"/>
                         </TouchableOpacity>
                     </View>
