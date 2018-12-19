@@ -4,6 +4,8 @@ import {
     Text,
     Alert,
     FlatList,
+    ListView,
+    ActivityIndicator,
     TouchableHighlight,
     ScrollView,
     StyleSheet
@@ -11,9 +13,11 @@ import {
 import { 
     Fab, List
 } from 'native-base';
+import { fetch } from 'fetch';
 import Icon from 'react-native-vector-icons/Ionicons';
 
 import ChatItem from '../../components/ChatItem';
+import { WHATSAPP_CHATS_API } from '../../data/data';
 
 class ChatScreen extends Component {
 
@@ -21,101 +25,72 @@ class ChatScreen extends Component {
         super(props)
         this.state = {
             active: 'true',
-            data : [
-                {
-                    id: "1",
-                    name: "Doni",
-                    message: "Hay",
-                    date: "24/11/2018"
-                },
-                {
-                    id: "2",
-                    name: "Rini",
-                    message: "Hay",
-                    date: "24/11/2018"
-                },
-                {
-                    id: "3",
-                    name: "Susi",
-                    message: "Hay",
-                    date: "24/11/2018"
-                },
-                {
-                    id: "4",
-                    name: "Joko",
-                    message: "Hay",
-                    date: "24/11/2018"
-                },
-                {
-                    id: "5",
-                    name: "Dini",
-                    message: "Hay",
-                    date: "24/11/2018"
-                },
-                {
-                    id: "6",
-                    name: "Reno",
-                    message: "Hay",
-                    date: "24/11/2018"
-                },
-                {
-                    id: "7",
-                    name: "Lusi",
-                    message: "Hay",
-                    date: "24/11/2018"
-                },
-                {
-                    id: "8",
-                    name: "Jono",
-                    message: "Hay",
-                    date: "24/11/2018"
-                },
-                {
-                    id: "9",
-                    name: "Joni",
-                    message: "Hay",
-                    date: "24/11/2018"
-                },
-                {
-                    id: "10",
-                    name: "Dono",
-                    message: "Hay",
-                    date: "24/11/2018"
-                },
-            ]
+            //data: data([]),
+            loaded: false,
         };
     }
+
+    componentDidMount(){
+        return fetch(WHATSAPP_CHATS_API)
+            .then((response) => response.json())
+            .then((responseJson) => {
+        
+                this.setState({
+                    loaded: false,
+                    dataSource: responseJson,
+                },);
+        
+            })
+            .catch((error) =>{
+                console.error(error);
+            });
+    }    
 
     _renderItem = ({item}) => (
     
         <ChatItem
             id={item.id}
-            name={item.name}
+            first_name={item.first_name}
             message={item.message}
+            image={item.image}
+            read={item.read}
+            time={item.time}
             date={item.date}
             onLongPress={()=> Alert.alert("Thanks You long press this listitem")}
             onPress={() => this.props.navigation.navigate('ChatDetailItemScreen', 
                 {
-                    name: item.name, 
+                    id: item.id,
+                    first_name: item.first_name,
                     message: item.message,
+                    image: item.image,
+                    read: item.read,
+                    time: item.time,
                     date: item.date,
                 }
             )} 
-            //navigation={this.props.navigation}
         />
     );
 
-    _keyExtractor = (item, index) => item.id;
+    _keyExtractor = (item, index) => item.toString();
 
     render() {
+        
+        if (this.state.isLoading) {
+            return (
+                <View style={{flex: 1, paddingTop: 20}}>
+                    <ActivityIndicator/>
+                </View>
+            );
+        }
 
         return (
             <View style={styles.container}>
                 <List containerStyle = {{borderTopWidth: 0, borderBottomWidth: 0}}>
                     <FlatList
-                        data={this.state.data}
+                        data={this.state.dataSource}
                         keyExtractor={this._keyExtractor} 
                         renderItem={this._renderItem}
+                        //renderItem={({item}) => <Text>{item.title}, {item.releaseYear}</Text>}
                     />
                 </List>
                 <Fab
@@ -125,9 +100,6 @@ class ChatScreen extends Component {
                     onPress={ ()=> this.props.navigation.navigate('AddChatItemScreen') }>
                     <Icon 
                         name="md-text" 
-                        style={{
-                            //rotation: 180
-                        }}
                     />
                 </Fab>
             </View>

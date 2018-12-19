@@ -9,7 +9,7 @@ import {
     TouchableOpacity,
     StyleSheet
 } from "react-native";
-import {Container, Input, Item, Content, Thumbnail, Footer} from 'native-base';
+import {Container, Input, Item, Thumbnail, Footer} from 'native-base';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
 class LogoTitle extends Component {
@@ -18,8 +18,7 @@ class LogoTitle extends Component {
         return (
             <TouchableOpacity onPress={()=> Alert.alert('this is onPress to navigate on screen detail profil contact/group')}>
                 <View>
-                    <Text style={{fontSize: 17, fontWeight: 'bold', color: 'white'}}>{navigation.getParam('name')}</Text>
-                    <Text style={{fontSize: 11, color: 'white'}}>160 contact</Text>
+                    <Text style={{fontSize: 17, fontWeight: 'bold', color: 'white'}}>{navigation.getParam('first_name')}</Text>
                 </View>
             </TouchableOpacity>
         );
@@ -28,6 +27,7 @@ class LogoTitle extends Component {
 
 class IconHeaderRight extends Component {
     render() {
+        const {navigation} = this.props;
         return (
             <TouchableOpacity onPress={()=> Alert.alert('This is pop-up-menu')}>
                 <View style={{
@@ -47,34 +47,40 @@ class IconHeaderRight extends Component {
     }
 }
 
+class HeaderBackImage extends Component {
+    render() {
+        const {navigation,} = this.props;
+        const {image} = this.props.navigation.state.params;
+        return (
+            <View 
+                style={{flex: 1, flexDirection: 'row',
+                justifyContent: 'center', alignItems: 'center', 
+                }}
+            >
+                <Ionicons 
+                    name="md-arrow-back"
+                    style={{
+                        color: 'white', fontSize: 25, paddingRight: 5
+                    }}
+                />
+                <Thumbnail
+                    source={{uri:image}} resizeMode='contain'
+                    style={{width: 35, height: 35,}}
+                />
+            </View>
+
+        );
+    }
+}
+
 class ChatDetailItemScreen extends Component {
 
     static navigationOptions = ({ navigation }) => {
         return {
             headerTitle: <LogoTitle navigation={navigation}/>,
-            headerRight: <IconHeaderRight/>,
-            headerBackImage: (
-                <View 
-                    style={{flex: 1, flexDirection: 'row',
-                    justifyContent: 'center', alignItems: 'center', 
-                    }}
-                >
-                    <Ionicons 
-                        name="md-arrow-back"
-                        style={{
-                            color: 'white', fontSize: 25, paddingRight: 5
-                        }}
-                    />
-                    <Thumbnail
-                        source={require('../../assets/images/regLogo.png')}
-                        style={{width: 35, height: 35,}}
-                    />
-                </View>
-            ),
-            headerLeftContainerStyle: {
-               // paddingStart: 50,
-               //marginLeft: 50,
-            },
+            headerRight: <IconHeaderRight navigation={navigation}/>,
+            headerBackImage: <HeaderBackImage navigation={navigation}/>,
+
             headerTitleContainerStyle: {
                 width: '70%',
                 marginLeft: 21
@@ -89,14 +95,17 @@ class ChatDetailItemScreen extends Component {
     render() {
 
         const {navigation} = this.props;
-        const {item, name, message, date, } = this.props.navigation.state.params;
+        const {item, first_name, message, date, image, read, time,} = this.props.navigation.state.params;
 
         return (
             <Container>
                 <ScrollView style={styles.container}>
-                    <Text>{name}</Text>
+                    <Thumbnail source={{uri:image}} resizeMode='contain'/>
+                    <Text>{first_name}</Text>
                     <Text>{message}</Text>
                     <Text>{date}</Text>
+                    <Text>{read}</Text>
+                    <Text>{time}</Text>
                 </ScrollView>
                 <View 
                     style={{flex: 1, flexDirection: 'row', paddingHorizontal: 5, position: 'absolute', bottom: 0,

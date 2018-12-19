@@ -51,7 +51,7 @@ class StatusScreen extends Component {
                                 <Thumbnail source={ require('../../assets/images/television.png') } />
                             </Left>
                             <Body>
-                                <Text style={{fontWeight: 'bold', fontSize: 16}}>Dia</Text>
+                                <Text style={{fontWeight: 'bold', fontSize: 16}}>Gigi</Text>
                                 <Text>Just now</Text>
                             </Body>
                         </ListItem>
@@ -63,7 +63,7 @@ class StatusScreen extends Component {
                                 <Thumbnail source={ require('../../assets/images/television.png') } />
                             </Left>
                             <Body>
-                                <Text style={{fontWeight: 'bold', fontSize: 16}}>Dia</Text>
+                                <Text style={{fontWeight: 'bold', fontSize: 16}}>Putri</Text>
                                 <Text>10 hours ago</Text>
                             </Body>
                         </ListItem>

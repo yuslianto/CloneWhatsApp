@@ -2,12 +2,13 @@ import React, { Component } from "react";
 import { 
     View,
     Text,
+    Image,
     TouchableOpacity,
     StyleSheet
 } from "react-native";
 import { 
     Left, Right,
-    Body, ListItem, Thumbnail
+    Body, ListItem, Thumbnail,
 } from 'native-base';
 
 class ChatItem extends Component {
@@ -20,7 +21,7 @@ class ChatItem extends Component {
     //};
 
     render() {
-        const {id, name, message, date} = this.props;
+        const {id, first_name, message, date, image, } = this.props;
 
         return (
             <View style={styles.container}>
@@ -30,10 +31,10 @@ class ChatItem extends Component {
                     onPress={this.props.onPress}
                 >
                     <Left>
-                        <Thumbnail source={ require('../assets/images/regLogo.png') } />
+                        <Thumbnail source={{uri:image}} resizeMode='contain'/>
                     </Left>
                     <Body>
-                        <Text style={{fontWeight: 'bold', fontSize: 16}}>{name}</Text>
+                        <Text style={{fontWeight: 'bold', fontSize: 16}}>{first_name}</Text>
                         <Text>{message}</Text>
                     </Body>
                     <Right>
@@ -50,5 +51,10 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: 'white',
+    },
+    initStyle: {
+        borderRadius: 30,
+        width: 60,
+        height: 60
     }
 });

@@ -51,7 +51,7 @@ class CallsScreen extends Component {
                                 <Thumbnail source={ require('../../assets/images/television.png') } />
                             </Left>
                             <Body>
-                                <Text style={{fontWeight: 'bold', fontSize: 16}}>Dia</Text>
+                                <Text style={{fontWeight: 'bold', fontSize: 16}}>Reno</Text>
                                 <Text>30  April 2018</Text>
                             </Body>
                             <Right>
@@ -63,7 +63,7 @@ class CallsScreen extends Component {
                                 <Thumbnail source={ require('../../assets/images/regLogo.png') } />
                                 </Left>
                             <Body>
-                                <Text style={{fontWeight: 'bold', fontSize: 16}}>Anti</Text>
+                                <Text style={{fontWeight: 'bold', fontSize: 16}}>Andi</Text>
                                 <Text>4 November 2018</Text>
                             </Body>
                             <Right>
