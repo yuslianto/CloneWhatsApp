@@ -3,6 +3,8 @@ import {
     View,
     Text,
     Alert,
+    FlatList,
+    ActivityIndicator,
     ScrollView,
     StyleSheet
 } from "react-native";
@@ -12,78 +14,87 @@ import {
 } from 'native-base';
 import Icon from 'react-native-vector-icons/Ionicons';
 
+import CallItem from '../../components/CallItem';
+import { WHATSAPP_CALLS_API } from '../../data/data';
+
 class CallsScreen extends Component {
 
-    constructor() {
-        super()
+    constructor(props) {
+        super(props)
         this.state = {
-            active: 'true'
+            active: 'true',
+            //data: data([]),
+            loaded: false,
         };
     }
+
+    componentDidMount(){
+        return fetch(WHATSAPP_CALLS_API)
+            .then((response) => response.json())
+            .then((responseJson) => {
+        
+                this.setState({
+                    loaded: false,
+                    dataSource: responseJson,
+                },);
+        
+            })
+            .catch((error) =>{
+                console.error(error);
+            });
+    }
+    
+    _renderItem = ({item}) => (
+    
+        <CallItem
+            id={item.id}
+            first_name={item.first_name}
+            missed={item.missed}
+            image={item.image}
+            read={item.read}
+            time={item.time}
+            date={item.date}
+            onLongPress={()=> Alert.alert("Thanks You long press this listitem")}
+            onPress={() => this.props.navigation.navigate('ChatDetailItemScreen', 
+                {
+                    id: item.id,
+                    first_name: item.first_name,
+                    missed: item.missed,
+                    image: item.image,
+                    read: item.read,
+                    time: item.time,
+                    date: item.date,
+                }
+            )} 
+        />
+    );
+
+    _keyExtractor = (item, index) => item.toString();
 
     _onLongPross() {
         Alert.alert('You long pres the item!!!')
     }
 
     render() {
+
+        if (this.state.isLoading) {
+            return (
+                <View style={{flex: 1, paddingTop: 20}}>
+                    <ActivityIndicator/>
+                </View>
+            );
+        }
+
         return (
             <View style={styles.container}>
-                <ScrollView style ={{flex: 1, backgroundColor: 'white'}} >
-                    <List>
-                        <ListItem avatar
-                            button={true}
-                            onPress= { ()=> this.props.navigation.navigate('CallItemScreen')}
-                            onLongPress= {this._onLongPross}
-                        >
-                            <Left>
-                                <Thumbnail source={ require('../../assets/images/regLogo.png') } />
-                                </Left>
-                            <Body>
-                                <Text style={{fontWeight: 'bold', fontSize: 16}}>Rini</Text>
-                                <Text>4 November 2018</Text>
-                            </Body>
-                            <Right>
-                                <Icon name='md-call' style={{paddingTop: 10, fontSize: 25, color: 'red'}}/>
-                            </Right>
-                        </ListItem>
-                        <ListItem avatar>
-                            <Left>
-                                <Thumbnail source={ require('../../assets/images/television.png') } />
-                            </Left>
-                            <Body>
-                                <Text style={{fontWeight: 'bold', fontSize: 16}}>Reno</Text>
-                                <Text>30  April 2018</Text>
-                            </Body>
-                            <Right>
-                                <Icon name='md-call' style={{paddingTop: 10, fontSize: 25, color: 'green'}}/>
-                            </Right>
-                        </ListItem>
-                        <ListItem avatar>
-                            <Left>
-                                <Thumbnail source={ require('../../assets/images/regLogo.png') } />
-                                </Left>
-                            <Body>
-                                <Text style={{fontWeight: 'bold', fontSize: 16}}>Andi</Text>
-                                <Text>4 November 2018</Text>
-                            </Body>
-                            <Right>
-                                <Icon name='md-call' style={{paddingTop: 10, fontSize: 25, color: 'red'}}/>
-                            </Right>
-                        </ListItem>
-                        <ListItem avatar>
-                            <Left>
-                                <Thumbnail source={ require('../../assets/images/television.png') } />
-                            </Left>
-                            <Body>
-                                <Text style={{fontWeight: 'bold', fontSize: 16}}>Kadir</Text>
-                                <Text>30  April 2018</Text>
-                            </Body>
-                            <Right>
-                                <Icon name='md-call' style={{paddingTop: 10, fontSize: 25, color: 'green'}}/>
-                            </Right>
-                        </ListItem>
-                    </List>
-                </ScrollView>
+                <List containerStyle = {{borderTopWidth: 0, borderBottomWidth: 0}}>
+                    <FlatList
+                        data={this.state.dataSource}
+                        keyExtractor={this._keyExtractor} 
+                        renderItem={this._renderItem}
+                        //renderItem={({item}) => <Text>{item.title}, {item.releaseYear}</Text>}
+                    />
+                </List>    
                 <Fab
                     active={this.state.active}
                     style={{ backgroundColor: '#009933' }}
