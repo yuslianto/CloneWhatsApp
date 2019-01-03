@@ -26,7 +26,7 @@ class ChatScreen extends Component {
         this.state = {
             active: 'true',
             //data: data([]),
-            loaded: false,
+            loaded: true,
         };
     }
 
@@ -77,8 +77,8 @@ class ChatScreen extends Component {
         
         if (this.state.isLoading) {
             return (
-                <View style={{flex: 1, paddingTop: 20}}>
-                    <ActivityIndicator/>
+                <View style={{flex: 1, justifyContent: 'center'}}>
+                    <ActivityIndicator size="large" color="#0000ff" />
                 </View>
             );
         }

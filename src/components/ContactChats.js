@@ -10,8 +10,10 @@ import {
     Left, Right,
     Body, ListItem, Thumbnail,
 } from 'native-base';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 
-class ChatItem extends Component {
+
+class ContactChats extends Component {
     constructor(props) {
         super(props);        
     }
@@ -37,20 +39,18 @@ class ChatItem extends Component {
                         <Text style={{fontWeight: 'bold', fontSize: 16}}>{first_name}</Text>
                         <Text numberOfLines={1}>{message}</Text>
                     </Body>
-                    <Right>
-                        <Text>{date}</Text>
-                    </Right>
                 </ListItem>
             </View>
         );
     }
 }
-export default ChatItem;
+export default ContactChats;
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: 'white',
+        paddingRight: 40,
     },
     initStyle: {
         borderRadius: 30,
