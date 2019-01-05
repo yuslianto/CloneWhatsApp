@@ -13,6 +13,7 @@ import {
     Body, List, ListItem, Thumbnail
 } from 'native-base';
 import Icon from 'react-native-vector-icons/Ionicons';
+import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 
 import CallItem from '../../components/CallItem';
 import { WHATSAPP_CALLS_API } from '../../data/data';
@@ -55,7 +56,7 @@ class CallsScreen extends Component {
             time={item.time}
             date={item.date}
             onLongPress={()=> Alert.alert("Thanks You long press this listitem")}
-            onPress={() => this.props.navigation.navigate('ChatDetailItemScreen', 
+            onPress={() => this.props.navigation.navigate('CallItemScreen', 
                 {
                     id: item.id,
                     first_name: item.first_name,
@@ -100,7 +101,7 @@ class CallsScreen extends Component {
                     style={{ backgroundColor: '#009933' }}
                     position="bottomRight"
                     onPress={() => this.props.navigation.navigate('AddCallScreen')}>
-                    <Icon name="md-call" />
+                    <MaterialCommunityIcons name="phone-plus" />
                 </Fab>
             </View>
         );
