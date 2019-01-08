@@ -6,6 +6,7 @@ import {
     TouchableOpacity,
     StyleSheet
 } from "react-native";
+import { Thumbnail, Left, Right } from "native-base";
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import ChatDetailItemScreen from "../Chats/ChatDetailItemScreen";
 
@@ -95,9 +96,44 @@ class CallItemScreen extends Component {
     };
 
     render() {
+        const {navigation} = this.props;
+        const {item, first_name, message, date, image, read, time,} = this.props.navigation.state.params;
         return (
             <View style={styles.container}>
-                <Text>CallItemScreen</Text>
+                <View style={styles.titlaCall}>
+                    <Left style={styles.row}>
+                        <Thumbnail style={{marginLeft: 0}} source={{uri:image}} resizeMode='contain'/>
+                        <Text style={styles.txt}>{first_name}</Text>
+                    </Left>
+                    <Right style={styles.rowIcon}>
+                        <Ionicons
+                            name="ios-call"
+                            style={[styles.icon, {color:"green", fontSize: 30}]}
+                        />
+                        <Ionicons
+                            name="ios-videocam"
+                            style={{color:"green", fontSize: 30}}
+                        />
+                    </Right>
+                </View>
+                <View style={styles.timeCall}>
+                    <Text style={styles.txt}>{date}</Text>
+                    <Left style={styles.row}>
+                        <Thumbnail style={{marginLeft: 0}} source={{uri:image}} resizeMode='contain'/>
+                        <Text style={styles.txt}>{time}</Text>
+                    </Left>
+                    <Right style={styles.rowIcon}>
+                        <Ionicons
+                            name="ios-call"
+                            style={[styles.icon, {color:"green", fontSize: 30}]}
+                        />
+                        <Ionicons
+                            name="ios-videocam"
+                            style={{color:"green", fontSize: 30}}
+                        />
+                    </Right>
+                </View>
+                
             </View>
         );
     }
@@ -108,6 +144,46 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         alignItems: 'center',
-        justifyContent: 'center'
+    },
+    titlaCall: {
+        //flex: 1,
+        flexDirection: 'row',
+        width: '100%',
+        backgroundColor: 'white',
+        height: 100,
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+    timeCall: {
+        //flex: 1,
+        borderRadius: 10,
+        marginTop: 10,
+        marginHorizontal: 10,
+        //flexDirection: 'row',
+        width: 370,
+        backgroundColor: 'white',
+        height: 130,
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+    row: {
+        flexDirection: 'row',
+        justifyContent: 'flex-start',
+        alignItems: 'center',
+        paddingHorizontal: 10,
+    },
+    txt: {
+        fontWeight: 'bold',
+        fontSize: 20,
+        paddingHorizontal: 10
+    },
+    rowIcon: {
+        flexDirection: 'row',
+        justifyContent: 'flex-end',
+        alignItems: 'center',
+        paddingHorizontal: 20,
+    },
+    icon: {
+        paddingHorizontal: 20,
     }
 });

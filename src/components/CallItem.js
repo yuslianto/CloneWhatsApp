@@ -45,7 +45,7 @@ class CallItem extends Component {
                     <Right style={{flex: 1, justifyContent:'center'}}>
                         <Ionicons
                             name="md-call"
-                            style={{fontSize:25}}
+                            style={{color: 'green',fontSize:25}}
                         />
                     </Right>
                 </ListItem>
